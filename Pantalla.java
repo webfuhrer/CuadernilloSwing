@@ -5,6 +5,8 @@
  */
 package com.mycompany.cuadernillo;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author CDMFP
@@ -44,6 +46,11 @@ static int puntuacion=0;
         jLabel3.setText("+");
 
         btn_comprobar.setText("Comprobar");
+        btn_comprobar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_comprobarMouseClicked(evt);
+            }
+        });
 
         lbl_puntuacion.setText("0");
 
@@ -96,6 +103,29 @@ static int puntuacion=0;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_comprobarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_comprobarMouseClicked
+        // TODO add your handling code here:
+        int respuesta_correcta=op.getResultado();
+        //Borrar el campo
+        
+        String txt_respuesta_usuario=txt_resultado.getText();
+        txt_resultado.setText("");
+        int respuesta_usuario=Integer.parseInt(txt_respuesta_usuario);
+        if(respuesta_correcta==respuesta_usuario)
+        {
+            JOptionPane.showMessageDialog(rootPane, "Enhorabuena");
+            puntuacion++;
+        }
+        else
+        {
+             JOptionPane.showMessageDialog(rootPane, "Lo siento, el resultado"
+                     + " es:"+respuesta_correcta);
+        }
+        actualizarPuntuacion();
+        op=new Operacion();
+        mostrarOperacion();
+    }//GEN-LAST:event_btn_comprobarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -144,4 +174,8 @@ private static void mostrarOperacion()
     private static javax.swing.JLabel lbl_puntuacion;
     private static javax.swing.JTextField txt_resultado;
     // End of variables declaration//GEN-END:variables
+
+    private void actualizarPuntuacion() {
+        lbl_puntuacion.setText(String.valueOf(puntuacion));
+    }
 }
